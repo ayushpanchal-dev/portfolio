@@ -1,0 +1,88 @@
+[
+    {
+        "title": "Helping Hand",
+        "duration": "11/2022 - 02/2023",
+        "type": "Academic Project (NGO Based)",
+        "description": "A web-based NGO management system developed as an academic project to support social initiatives and streamline organizational activities.",
+        "tech_stack": [
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Django",
+            "MySQL"
+        ],
+        "platform": "Web Application",
+        "image": "assets/images/python.jpg"
+    },
+    {
+        "title": "Reality Homes",
+        "type": "Academic Project",
+        "description": "A real estate management system designed to manage property listings, inquiries, and and customer interactions efficiently.",
+        "tech_stack": [
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Django",
+            "MySQL"
+        ],
+        "platform": "Web Application",
+        "image": "assets/images/python.jpg"
+    },
+    {
+        "title": "EStore",
+        "type": "E-commerce Application",
+        "description": "A full-featured e-commerce application with separate user and admin panels supporting product management, orders, and authentication.",
+        "tech_stack": [
+            "Flutter",
+            "Django",
+            "Firebase"
+        ],
+        "platform": "Mobile Application",
+        "modules": [
+            "Admin Panel (Django)",
+            "User Panel (Flutter)"
+        ],
+        "image": "assets/images/flutter.jpg"
+    },
+    {
+        "title": "Suraj Approval",
+        "type": "Live Project (Company Project)",
+        "description": "An internal approval and workflow management system implementing role-based access control for expense and operational request approvals.",
+        "tech_stack": [
+            "Flutter (Web & Mobile)",
+            "GetX",
+            "REST APIs"
+        ],
+        "platform": "Web & Mobile Application",
+        "note": "Backend and database details are confidential (company project).",
+        "image": "assets/images/surajLogo.jpg"
+    },
+    {
+        "title": "SimpliWorks Enterprise Modules",
+        "type": "Live Project (Company Product)",
+        "description": "Worked on enterprise-grade modules within the SimpliWorks platform, focusing on scalable, role-based business workflows and data-driven operations.",
+        "modules": [
+            "CRM Module",
+            "Expense Management Module",
+            "Delivery Management Module"
+        ],
+        "tech_stack": [
+            "Flutter (Web & Mobile)",
+            "GetX",
+            "REST APIs",
+            "Dio",
+            "Role-Based Access Control"
+        ],
+        "platform": "Enterprise Web & Mobile Application",
+        "note": "Internal business logic and database architecture are confidential.",
+        "image": "assets/images/simpliLogo.png",
+        "year": "2024",
+        "about": "Worked on enterprise-grade modules within the SimpliWorks platform, focusing on scalable, role-based business workflows and data-driven operations.",
+        "features": [
+            "CRM for managing customer relationships",
+            "Expense tracking and approval workflows",
+            "Real-time delivery management system",
+            "Role-based access control integration"
+        ]
+    }
+]
