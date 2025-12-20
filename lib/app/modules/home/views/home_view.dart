@@ -80,25 +80,30 @@ class HomeView extends GetView<HomeController> {
                     key: controller.homeKey,
                     child: const HeroSection(),
                   ),
-                  Container(
-                    key: controller.aboutKey,
+                  _buildSectionContainer(
                     child: const AboutSection(),
+                    key: controller.aboutKey,
+                    backgroundColor: AppColors.surface,
                   ),
-                  Container(
-                    key: controller.skillsKey,
+                  _buildSectionContainer(
                     child: const SkillsSection(),
+                    key: controller.skillsKey,
+                    backgroundColor: AppColors.background,
                   ),
-                  Container(
-                    key: controller.resumeKey,
+                  _buildSectionContainer(
                     child: const ResumeSection(),
+                    key: controller.resumeKey,
+                    backgroundColor: AppColors.surface,
                   ),
-                  Container(
-                    key: controller.projectsKey,
+                  _buildSectionContainer(
                     child: const ProjectsSection(),
+                    key: controller.projectsKey,
+                    backgroundColor: AppColors.background,
                   ),
-                  Container(
-                    key: controller.contactKey,
+                  _buildSectionContainer(
                     child: const ContactSection(),
+                    key: controller.contactKey,
+                    backgroundColor: AppColors.surface,
                   ),
                   const Footer(),
                 ],
@@ -118,6 +123,32 @@ class HomeView extends GetView<HomeController> {
         style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
       ),
       onTap: onTap,
+    );
+  }
+
+  Widget _buildSectionContainer({
+    required Widget child,
+    required Key key,
+    required Color backgroundColor,
+  }) {
+    return Container(
+      key: key,
+      width: double.infinity,
+      color: backgroundColor,
+      constraints: const BoxConstraints(
+          minHeight:
+              800), // Min height for full screen feel (using fixed reasonable height to avoid layout issues with MediaQuery in some contexts, or could use MediaQuery inside Builder)
+      // actually using MediaQuery is better for "full screen".
+      // Let's use LayoutBuilder or just MediaQuery.
+      child: Builder(builder: (context) {
+        return Container(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          alignment: Alignment.center,
+          child: child,
+        );
+      }),
     );
   }
 }

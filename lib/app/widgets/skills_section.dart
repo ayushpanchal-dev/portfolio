@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_gradients.dart';
 import '../utils/responsive_helper.dart';
+import 'gradient_text.dart';
 
 class SkillsSection extends StatelessWidget {
   const SkillsSection({Key? key}) : super(key: key);
@@ -17,8 +19,9 @@ class SkillsSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
+          GradientText(
             'Skills',
+            gradient: AppGradients.primary,
             style: GoogleFonts.rubik(
               fontSize: 40,
               fontWeight: FontWeight.bold,
@@ -30,7 +33,7 @@ class SkillsSection extends StatelessWidget {
             height: 4,
             width: 60,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              gradient: AppGradients.primary,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -71,38 +74,65 @@ class SkillsSection extends StatelessWidget {
     required String title,
     required List<String> skills,
   }) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textSecondary,
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        color: AppColors.surface.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
-        ),
-        const SizedBox(height: 20),
-        Wrap(
-          spacing: 15,
-          runSpacing: 15,
-          alignment: WrapAlignment.center,
-          children: skills.map((skill) => _buildSkillChip(skill)).toList(),
-        ),
-      ],
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GradientText(
+            title,
+            gradient: AppGradients.primary,
+            style: GoogleFonts.poppins(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 25),
+          Wrap(
+            spacing: 15,
+            runSpacing: 15,
+            children: skills.map((skill) => _buildSkillChip(skill)).toList(),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSkillChip(String label) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: AppColors.primary.withOpacity(0.5)),
-      ),
+          color: Colors.white.withOpacity(0.03),
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: Colors.white.withOpacity(0.1)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            )
+          ]),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.white, fontSize: 16),
+        style: GoogleFonts.poppins(
+          color: Colors.white.withOpacity(0.9),
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

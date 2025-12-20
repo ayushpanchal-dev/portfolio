@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive_helper.dart';
+import '../theme/app_gradients.dart';
+import 'gradient_text.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({Key? key}) : super(key: key);
@@ -17,8 +19,9 @@ class AboutSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
+          GradientText(
             'About Me',
+            gradient: AppGradients.primary,
             style: GoogleFonts.rubik(
               fontSize: 40,
               fontWeight: FontWeight.bold,
@@ -30,55 +33,16 @@ class AboutSection extends StatelessWidget {
             height: 4,
             width: 60,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              gradient: AppGradients.primary,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
           const SizedBox(height: 50),
           _buildBioContent(context, isMobile),
-          // isMobile
-          //     ? Column(
-          //         children: [
-          //           _buildProfileImage(),
-          //           const SizedBox(height: 30),
-          //           _buildBioContent(context, isMobile),
-          //         ],
-          //       )
-          //     : Row(
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           Expanded(
-          //               flex: 4, child: Center(child: _buildProfileImage())),
-          //           const SizedBox(width: 50),
-          //           Expanded(
-          //               flex: 6, child: _buildBioContent(context, isMobile)),
-          //         ],
-          //       ),
         ],
       ),
     );
   }
-
-  // Widget _buildProfileImage() {
-  //   return Container(
-  //     height: 320,
-  //     width: 320,
-  //     decoration: BoxDecoration(
-  //       shape: BoxShape.circle,
-  //       image: const DecorationImage(
-  //         image: AssetImage('assets/images/profile_ayush.jpg'),
-  //         fit: BoxFit.contain,
-  //       ),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: AppColors.primary.withOpacity(0.2),
-  //           blurRadius: 20,
-  //           offset: const Offset(0, 10),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _buildBioContent(BuildContext context, bool isMobile) {
     return Column(
@@ -127,12 +91,13 @@ class AboutSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
+          GradientText(
             value,
+            gradient: AppGradients.primary,
             style: GoogleFonts.rubik(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: AppColors.primary,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 5),

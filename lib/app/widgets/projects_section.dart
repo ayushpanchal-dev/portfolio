@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../data/models/project.dart';
-import '../theme/app_colors.dart';
+import '../theme/app_gradients.dart';
 import '../utils/responsive_helper.dart';
+import 'gradient_text.dart';
 import 'project_card.dart';
 
 class ProjectsSection extends StatefulWidget {
@@ -40,8 +41,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       ),
       child: Column(
         children: [
-          Text(
+          GradientText(
             'Projects',
+            gradient: AppGradients.primary,
             style: GoogleFonts.rubik(
               fontSize: 40,
               fontWeight: FontWeight.bold,
@@ -53,7 +55,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             height: 4,
             width: 60,
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              gradient: AppGradients.primary,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -83,14 +85,15 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
               return isMobile
                   ? Column(
-                      children: projects
-                          .map(
-                            (p) => Padding(
-                              padding: const EdgeInsets.only(bottom: 30),
-                              child: ProjectCard(project: p),
-                            ),
-                          )
-                          .toList(),
+                      children: projects.asMap().entries.map((entry) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: ProjectCard(
+                            project: entry.value,
+                            index: entry.key,
+                          ),
+                        );
+                      }).toList(),
                     )
                   : GridView.builder(
                       shrinkWrap: true,
@@ -98,13 +101,17 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: 0.9,
+                        childAspectRatio:
+                            1.1, // Adjusted to reduce card height and empty space
                         crossAxisSpacing: 25,
                         mainAxisSpacing: 25,
                       ),
                       itemCount: projects.length,
                       itemBuilder: (context, index) {
-                        return ProjectCard(project: projects[index]);
+                        return ProjectCard(
+                          project: projects[index],
+                          index: index,
+                        );
                       },
                     );
             },
