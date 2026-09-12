@@ -147,7 +147,7 @@ class ResumeSection extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         _buildTimelineItem(
-          role: 'Master Of Science In ation Technology',
+          role: 'Master Of Science In Information Technology',
           company:
               'Shri Maneklal M. Patel Institute Of Sciences & Research, GNR\nUniversity - Kadi Sarva Vishwavidyalaya',
           date: '2023-2025',
