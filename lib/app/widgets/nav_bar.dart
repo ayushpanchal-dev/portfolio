@@ -80,16 +80,20 @@ class NavBar extends StatelessWidget {
                   () => controller.scrollToSection(controller.aboutKey),
                 ),
                 _buildNavItem(
-                  'Skills',
+                  'Tech Stack',
                   () => controller.scrollToSection(controller.skillsKey),
                 ),
                 _buildNavItem(
-                  'Resume',
+                  'Experience',
                   () => controller.scrollToSection(controller.resumeKey),
                 ),
                 _buildNavItem(
                   'Projects',
                   () => controller.scrollToSection(controller.projectsKey),
+                ),
+                _buildNavItem(
+                  'Certificates',
+                  () => controller.scrollToSection(controller.certificatesKey),
                 ),
                 _buildNavItem(
                   'Contact',

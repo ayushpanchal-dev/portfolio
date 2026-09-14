@@ -9,7 +9,7 @@ import 'project_details_dialog.dart';
 
 class ProjectCard extends StatefulWidget {
   final Project project;
-  final int index; // To pick a gradient
+  final int index;
 
   const ProjectCard({Key? key, required this.project, this.index = 0})
       : super(key: key);
@@ -23,7 +23,6 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    // Pick a gradient based on index
     final gradient = AppGradients
         .cardGradients[widget.index % AppGradients.cardGradients.length];
 
@@ -40,132 +39,198 @@ class _ProjectCardState extends State<ProjectCard> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           transform: _isHovered
-              ? (Matrix4.identity()..translate(0, -10))
+              ? (Matrix4.identity()..translate(0, -8))
               : Matrix4.identity(),
           decoration: BoxDecoration(
-            color: const Color(0xFF1E1E28), // Dark card background
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: _isHovered
-                ? [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ]
-                : [],
+            color: const Color(0xFF161622),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _isHovered
+                  ? AppColors.primary.withOpacity(0.6)
+                  : Colors.white.withOpacity(0.08),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered
+                    ? AppColors.primary.withOpacity(0.25)
+                    : Colors.black.withOpacity(0.2),
+                blurRadius: _isHovered ? 20 : 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top Gradient Section
+              // Header Banner with Logo & Badge
               Container(
                 height: 140,
                 width: double.infinity,
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   gradient: gradient,
                   borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(15),
+                    top: Radius.circular(16),
                   ),
                 ),
-                child: Center(
-                  child: _buildProjectIcon(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (widget.project.type != null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.white24),
+                            ),
+                            child: Text(
+                              widget.project.type!,
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        const Icon(
+                          Icons.arrow_outward_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                    Center(
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 8,
+                            )
+                          ],
+                        ),
+                        child: widget.project.image.isNotEmpty
+                            ? Image.asset(
+                                widget.project.image,
+                                fit: BoxFit.contain,
+                                errorBuilder: (ctx, err, stack) => const Icon(
+                                  Icons.business,
+                                  color: Color(0xFF0072FF),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.business,
+                                color: Color(0xFF0072FF),
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              // Content Section
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Title
-                    Text(
-                      widget.project.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-
-                    // Description
-                    Text(
-                      widget.project.description,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.grey, fontSize: 13),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Tech Stack Labels
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: widget.project.techStack.take(3).map((tech) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.05),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            tech,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 10,
+              // Content Details Body
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.project.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              height: 1.2,
                             ),
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.project.description,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                              color: AppColors.textSecondary,
+                              fontSize: 12,
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 6,
+                            runSpacing: 6,
+                            children: widget.project.techStack.take(4).map((tech) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.06),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                      color: Colors.white.withOpacity(0.08)),
+                                ),
+                                child: Text(
+                                  tech,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xFF38BDF8),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 14),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "View Full Work",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.arrow_forward,
+                                size: 14,
+                                color: AppColors.primary,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildProjectIcon() {
-    // If image is a local asset path, we can still use it, but maybe smaller
-    // For now, let's use a generic icon map based on tech stack or title
-    IconData iconData = FontAwesomeIcons.code;
-
-    // Simple heuristic for icons
-    final title = widget.project.title.toLowerCase();
-    if (title.contains('app') || title.contains('flutter')) {
-      iconData = FontAwesomeIcons.mobileScreen;
-    } else if (title.contains('web') || title.contains('portfolio')) {
-      iconData = FontAwesomeIcons.globe;
-    } else if (title.contains('api') || title.contains('server')) {
-      iconData = FontAwesomeIcons.server;
-    } else if (title.contains('game')) {
-      iconData = FontAwesomeIcons.gamepad;
-    } else if (title.contains('tool') || title.contains('extension')) {
-      iconData = FontAwesomeIcons.screwdriverWrench;
-    }
-
-    // Reference images show a specific icon or image in the center.
-    // If the user has images, we could box them nicely.
-    // Let's try to use the image field if it looks like an icon, otherwise fallback to FontAwesome
-
-    // Assuming existing images are screenshots, we might want to prioritize icons for this specific look
-    // Or display the screenshot in a small rounded box.
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Icon(iconData, color: Colors.white, size: 30),
     );
   }
 }

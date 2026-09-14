@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_portfolio/app/widgets/about_section.dart';
-import 'package:my_portfolio/app/widgets/contact_section.dart';
-import 'package:my_portfolio/app/widgets/footer.dart';
-import 'package:my_portfolio/app/widgets/hero_section.dart';
-import 'package:my_portfolio/app/widgets/nav_bar.dart';
-import 'package:my_portfolio/app/widgets/projects_section.dart';
-import 'package:my_portfolio/app/widgets/resume_section.dart';
-import 'package:my_portfolio/app/widgets/skills_section.dart';
-import 'package:my_portfolio/app/theme/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../theme/app_colors.dart';
+import '../../../widgets/about_section.dart';
+import '../../../widgets/certificates_section.dart';
+import '../../../widgets/contact_section.dart';
+import '../../../widgets/footer.dart';
+import '../../../widgets/hero_section.dart';
+import '../../../widgets/nav_bar.dart';
+import '../../../widgets/projects_section.dart';
+import '../../../widgets/resume_section.dart';
+import '../../../widgets/tech_stack_section.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -35,7 +36,7 @@ class HomeView extends GetView<HomeController> {
               },
             ),
             _buildDrawerItem(
-              'Skills',
+              'Tech Stack',
               Icons.code_rounded,
               () {
                 Get.back();
@@ -43,8 +44,8 @@ class HomeView extends GetView<HomeController> {
               },
             ),
             _buildDrawerItem(
-              'Resume',
-              Icons.description_outlined,
+              'Experience',
+              Icons.work_outline,
               () {
                 Get.back();
                 controller.scrollToSection(controller.resumeKey);
@@ -52,10 +53,18 @@ class HomeView extends GetView<HomeController> {
             ),
             _buildDrawerItem(
               'Projects',
-              Icons.work_outline,
+              Icons.developer_mode,
               () {
                 Get.back();
                 controller.scrollToSection(controller.projectsKey);
+              },
+            ),
+            _buildDrawerItem(
+              'Certificates',
+              Icons.workspace_premium,
+              () {
+                Get.back();
+                controller.scrollToSection(controller.certificatesKey);
               },
             ),
             _buildDrawerItem(
@@ -86,7 +95,7 @@ class HomeView extends GetView<HomeController> {
                     backgroundColor: AppColors.surface,
                   ),
                   _buildSectionContainer(
-                    child: const SkillsSection(),
+                    child: const TechStackSection(),
                     key: controller.skillsKey,
                     backgroundColor: AppColors.background,
                   ),
@@ -101,9 +110,14 @@ class HomeView extends GetView<HomeController> {
                     backgroundColor: AppColors.background,
                   ),
                   _buildSectionContainer(
+                    child: const CertificatesSection(),
+                    key: controller.certificatesKey,
+                    backgroundColor: AppColors.surface,
+                  ),
+                  _buildSectionContainer(
                     child: const ContactSection(),
                     key: controller.contactKey,
-                    backgroundColor: AppColors.surface,
+                    backgroundColor: AppColors.background,
                   ),
                   const Footer(),
                 ],
@@ -135,15 +149,10 @@ class HomeView extends GetView<HomeController> {
       key: key,
       width: double.infinity,
       color: backgroundColor,
-      constraints: const BoxConstraints(
-          minHeight:
-              800), // Min height for full screen feel (using fixed reasonable height to avoid layout issues with MediaQuery in some contexts, or could use MediaQuery inside Builder)
-      // actually using MediaQuery is better for "full screen".
-      // Let's use LayoutBuilder or just MediaQuery.
       child: Builder(builder: (context) {
         return Container(
           constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height,
+            minHeight: MediaQuery.of(context).size.height * 0.85,
           ),
           alignment: Alignment.center,
           child: child,

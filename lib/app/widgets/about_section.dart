@@ -50,11 +50,11 @@ class AboutSection extends StatelessWidget {
           isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
         Text(
-          "As a passionate Flutter developer, I specialize in building beautiful, high-performance mobile applications that offer seamless user experiences across Android and iOS. I enjoy transforming complex ideas into intuitive and responsive UIs using Flutter’s powerful toolkit and clean architecture principles.\n\nFrom interactive design to efficient state management with tools like GetX and BLoC, I focus on writing clean, maintainable code that brings apps to life. I’ve worked with Firebase, REST APIs, real-time features, and more—ensuring every app I develop is scalable, dynamic, and user-focused.\n\nI'm always eager to learn, experiment with new Flutter capabilities, and contribute to projects that make a real-world impact. Whether it’s creating sleek interfaces or optimizing app performance, I’m committed to delivering quality in every build.",
+          "I am a Software Developer Level 1 at WeServeCodes Pvt. Ltd., specializing in cross-platform Flutter application engineering. My core expertise lies in building enterprise-grade mobile and web applications that streamline field sales operations, dispatch & logistics workflows, and multi-tier financial expense management systems.\n\nI architect robust Flutter applications utilizing GetX state management, Dio HTTP networking, dynamic data grids (PlutoGrid & Syncfusion DataGrid), real-time GPS tracking, and offline-aware field synchronization. I focus on clean architecture, responsive layouts across devices, and strict business validation compliance.\n\nWith a background in computer science and full-stack web development, I combine strong analytical problem-solving skills with practical mobile app engineering to build performant, user-centric software solutions.",
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: AppColors.textSecondary,
-            height: 1.5,
+            height: 1.6,
           ),
           textAlign: isMobile ? TextAlign.center : TextAlign.start,
         ),
@@ -63,18 +63,22 @@ class AboutSection extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildStatCard('1.5+', 'Years Experience'),
+              _buildStatCard('SDE-1', 'WeServeCodes Pvt. Ltd.'),
               const SizedBox(height: 20),
-              _buildStatCard('10+', 'Projects Completed'),
+              _buildStatCard('3+', 'Enterprise Products'),
+              const SizedBox(height: 20),
+              _buildStatCard('15+', 'Verified Certifications'),
             ],
           )
         else
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _buildStatCard('1.5+', 'Years Experience'),
+              _buildStatCard('SDE-1', 'WeServeCodes Pvt. Ltd.'),
               const SizedBox(width: 30),
-              _buildStatCard('10+', 'Projects Completed'),
+              _buildStatCard('3+', 'Enterprise Products'),
+              const SizedBox(width: 30),
+              _buildStatCard('15+', 'Verified Certifications'),
             ],
           ),
       ],
@@ -83,7 +87,7 @@ class AboutSection extends StatelessWidget {
 
   Widget _buildStatCard(String value, String label) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(15),
@@ -95,13 +99,16 @@ class AboutSection extends StatelessWidget {
             value,
             gradient: AppGradients.primary,
             style: GoogleFonts.rubik(
-              fontSize: 30,
+              fontSize: 26,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
           const SizedBox(height: 5),
-          Text(label, style: const TextStyle(color: Colors.white70)),
+          Text(
+            label,
+            style: GoogleFonts.poppins(color: Colors.white70, fontSize: 13),
+          ),
         ],
       ),
     );

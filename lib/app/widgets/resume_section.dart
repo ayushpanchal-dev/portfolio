@@ -83,36 +83,55 @@ class ResumeSection extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         _buildExperienceItem(
-          company: 'WeServeCodes Pvt Ltd.',
-          role: 'SDE -1 (Flutter Developer)',
-          date: 'Jan 2025 - Present',
+          company: 'WeServeCodes Pvt. Ltd.',
+          role: 'Software Developer Level 1',
+          date: 'Jul 2025 - Present',
           assetLogo: 'assets/images/wsc_logo.png',
           descriptionItems: [
-            'Worked on enterprise-grade web and mobile applications using Flutter, contributing to scalable and role-based business modules.',
-            'Developed and maintained CRM, Expense Management, and Delivery Management modules, focusing on clean architecture and modular design.',
-            'Implemented state management using GetX, ensuring efficient UI updates and predictable application behavior.',
-            'Gained strong hands-on experience in Flutter Web & Mobile, improving performance, responsiveness, and code reusability.'
+            'Architecting cross-platform enterprise applications using Flutter, focusing on scalable field operations and data-intensive workflows.',
+            'Developed simpliCRM (Field Sales CRM), simpliDELIVER (Logistics Dispatch), and simpliEXPENSE (Expense Management).',
+            'Implemented advanced state management with GetX, REST API integration with Dio, and dynamic data grids (PlutoGrid, Syncfusion DataGrid).',
+            'Designed offline-aware field synchronization, multi-level approval hierarchies, and role-based dynamic interfaces.'
           ],
-          technologies: ['Flutter', 'Dart', 'Firebase'],
+          technologies: [
+            'Flutter',
+            'Dart',
+            'GetX',
+            'Dio',
+            'REST APIs',
+            'PlutoGrid',
+            'Syncfusion'
+          ],
           isMobile: isMobile,
         ),
         _buildExperienceItem(
-          company: 'CreArt Solution',
-          role: 'Jr. Python Developer',
+          company: 'WeServeCodes Pvt. Ltd.',
+          role: 'Intern Software Developer',
+          date: 'Jan 2025 - Jun 2025',
+          assetLogo: 'assets/images/wsc_logo.png',
+          descriptionItems: [
+            'Built reusable Flutter UI widgets and integrated REST APIs across enterprise web & mobile modules.',
+            'Gained hands-on expertise in responsive layout engineering, state management, and enterprise app architecture.'
+          ],
+          technologies: ['Flutter', 'Dart', 'GetX', 'REST APIs'],
+          isMobile: isMobile,
+        ),
+        _buildExperienceItem(
+          company: 'CreArt Solutions',
+          role: 'Python Developer',
           date: 'May 2022 - Oct 2023',
           assetLogo: 'assets/images/creart_logo2.png',
           descriptionItems: [
-            'Worked as a full-stack web developer on academic and NGO-based projects, gaining hands-on industry experience in real-world application development.',
-            'Built responsive and user-friendly UI components using HTML, CSS, and Bootstrap, improving accessibility across devices.',
-            'Developed backend modules in Django, handling authentication, CRUD operations, and database integration.',
-            'Collaborated with mentors and team members to understand software development workflows, version control, and debugging practices.'
+            'Developed backend modules and CRUD services using Python & Django with MySQL database integration.',
+            'Designed responsive web interfaces using HTML, CSS, JavaScript, and Bootstrap.',
+            'Implemented authentication, database migrations, and web backend workflows.'
           ],
           technologies: [
             'Python',
             'Django',
-            'HTML',
-            'CSS',
-            'Javascript',
+            'MySQL',
+            'HTML/CSS',
+            'JavaScript',
             'Bootstrap'
           ],
           isLast: true,

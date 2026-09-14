@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_gradients.dart';
 import '../utils/responsive_helper.dart';
+import 'developer_background_painter.dart';
 import 'gradient_text.dart';
 import 'typewriter_text.dart';
 import 'package:get/get.dart';
@@ -19,55 +20,88 @@ class HeroSection extends StatelessWidget {
     final isDesktop = ResponsiveHelper.isDesktop(context);
     final size = MediaQuery.of(context).size;
 
-    return Container(
-      width: double.infinity,
-      // Ensure it takes at least the full screen height (minus navbar approx 80px)
-      constraints: BoxConstraints(
-        minHeight: size.height,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 100 : 20,
-        vertical: 10,
-      ),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.background,
-            Color(0xFF2E2A5C), // Dark purple tint
-          ],
+    return DeveloperBackgroundWidget(
+      child: Container(
+        width: double.infinity,
+        constraints: BoxConstraints(
+          minHeight: size.height,
         ),
-      ),
-      child: Center(
-        child: Flex(
-          direction: isDesktop ? Axis.horizontal : Axis.vertical,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Text Content
-            isDesktop
-                ? Expanded(flex: 6, child: _buildTextContent(isDesktop))
-                : _buildTextContent(isDesktop),
-            if (isDesktop) const SizedBox(width: 40),
-            // Hero Image/Illustration
-            isDesktop
-                ? Expanded(flex: 5, child: Center(child: _buildHeroImage()))
-                : (!ResponsiveHelper.isMobile(context)
-                    ? _buildHeroImage()
-                    : const SizedBox()),
-          ],
+        padding: EdgeInsets.symmetric(
+          horizontal: isDesktop ? 100 : 20,
+          vertical: 40,
+        ),
+        child: Center(
+          child: Flex(
+            direction: isDesktop ? Axis.horizontal : Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Text Content
+              isDesktop
+                  ? Expanded(flex: 6, child: _buildTextContent(isDesktop))
+                  : _buildTextContent(isDesktop),
+              if (isDesktop) const SizedBox(width: 40),
+              // Hero Image / Developer Frame
+              isDesktop
+                  ? Expanded(flex: 5, child: Center(child: _buildHeroImage()))
+                  : (!ResponsiveHelper.isMobile(context)
+                      ? _buildHeroImage()
+                      : const SizedBox()),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildTextContent(bool isDesktop) {
+    final List<String> keywords = [
+      'Flutter',
+      'Dart',
+      'GetX',
+      'REST APIs',
+      'Firebase',
+      'Responsive UI',
+      'Enterprise Applications',
+    ];
+
     return Column(
       crossAxisAlignment:
           isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // Role pill
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFF10B981), // Green active dot
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                "Software Developer Level 1 @ WeServeCodes",
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
         Text(
           "Hello, I'm",
           style: GoogleFonts.poppins(
@@ -76,18 +110,18 @@ class HeroSection extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         GradientText(
-          "Ayush Panchal",
+          "AYUSH PANCHAL",
           gradient: AppGradients.primary,
           style: GoogleFonts.rubik(
-            fontSize: isDesktop ? 60 : 40,
+            fontSize: isDesktop ? 54 : 36,
             fontWeight: FontWeight.bold,
             color: Colors.white,
             height: 1.1,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) => AppGradients.primary.createShader(
@@ -95,44 +129,45 @@ class HeroSection extends StatelessWidget {
           ),
           child: TypewriterText(
             texts: const [
-              'A Flutter Developer',
-              'Mobile App Developer',
-              'Software Engineer',
+              'Flutter Developer',
+              'Enterprise App Engineer',
+              'Cross-Platform Developer',
             ],
             style: GoogleFonts.poppins(
-              fontSize: 24,
+              fontSize: isDesktop ? 26 : 20,
               fontWeight: FontWeight.bold,
-              color:
-                  Colors.white, // Colors.white is necessary for srcIn blendmode
+              color: Colors.white,
             ),
-            duration: const Duration(milliseconds: 1500),
+            duration: const Duration(milliseconds: 1600),
           ),
         ),
         const SizedBox(height: 20),
         Text(
-          'Passionate about creating exceptional digital experiences\nthrough clean code and innovative solutions. Specializing\nin mobile technologies and user-centered design.',
+          'Building scalable, responsive and user-friendly mobile applications with Flutter.',
           textAlign: isDesktop ? TextAlign.start : TextAlign.center,
           style: GoogleFonts.poppins(
-            fontSize: 16,
-            color: AppColors.textSecondary,
+            fontSize: 17,
+            fontWeight: FontWeight.w500,
+            color: Colors.white.withOpacity(0.9),
             height: 1.5,
           ),
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 35),
+
+        // Call to action buttons
         Row(
           mainAxisAlignment:
               isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
           children: [
-            // "View My Work" Button - Gradient
             Container(
               height: 50,
               decoration: BoxDecoration(
                 gradient: AppGradients.primary,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.3),
-                    blurRadius: 10,
+                    color: AppColors.primary.withOpacity(0.4),
+                    blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),
                 ],
@@ -146,22 +181,21 @@ class HeroSection extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                 ),
                 child: Text(
-                  "View My Work",
+                  "View Enterprise Work",
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 20),
-            // "Get In Touch" Button - Outlined
+            const SizedBox(width: 16),
             OutlinedButton(
               onPressed: () {
                 final controller = Get.find<HomeController>();
@@ -170,15 +204,15 @@ class HeroSection extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Color(0xFF0072FF), width: 1.5),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 22),
+                    const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
               ),
               child: Text(
                 "Get In Touch",
                 style: GoogleFonts.poppins(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -186,28 +220,34 @@ class HeroSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 30),
+
         // Social Icons Row
         Row(
           mainAxisAlignment:
               isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
           children: [
-            const SizedBox(width: 20),
+            const _SocialIconButton(
+              icon: FontAwesomeIcons.github,
+              url: 'https://github.com/ayushpanchal-dev/apayush',
+              tooltip: 'GitHub',
+            ),
+            const SizedBox(width: 16),
             const _SocialIconButton(
               icon: FontAwesomeIcons.linkedinIn,
               url: 'https://www.linkedin.com/in/ayush2505',
               tooltip: 'LinkedIn',
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 16),
             const _SocialIconButton(
               icon: Icons.email_outlined,
               url: 'mailto:aayushpanchal0708@gmail.com',
               tooltip: 'Email',
               isFontAwesome: false,
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 16),
             const _SocialIconButton(
-              icon: Icons.remove_red_eye_outlined,
+              icon: Icons.description_outlined,
               url:
                   'https://drive.google.com/file/d/1K7aBNhoT-FCi_W3dZAHwe-_rnwuiziIn/view?usp=drive_link',
               tooltip: 'View Resume',
@@ -221,14 +261,27 @@ class HeroSection extends StatelessWidget {
 
   Widget _buildHeroImage() {
     return Container(
-      height:
-          400, // Slightly larger as requested "looks good like whole screen"
-      width: 400,
-      decoration: const BoxDecoration(
+      height: 380,
+      width: 380,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage('assets/images/profile_ayush.jpg'),
-          fit: BoxFit.cover,
+        gradient: AppGradients.primary,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.35),
+            blurRadius: 30,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage('assets/images/profile_ayush.jpg'),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
@@ -274,18 +327,16 @@ class _SocialIconButtonState extends State<_SocialIconButton> {
           message: widget.tooltip,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            height: 45,
-            width: 45,
+            height: 44,
+            width: 44,
             decoration: BoxDecoration(
               gradient: _isHovered
                   ? AppGradients.primary
                   : const LinearGradient(
                       colors: [Colors.transparent, Colors.transparent],
                     ),
-              borderRadius: BorderRadius.circular(10), // Rounded corners
-              color: _isHovered
-                  ? null
-                  : Colors.white.withOpacity(0.05), // Normal state color
+              borderRadius: BorderRadius.circular(10),
+              color: _isHovered ? null : Colors.white.withOpacity(0.05),
               border: _isHovered ? null : Border.all(color: Colors.white12),
               boxShadow: _isHovered
                   ? [
@@ -302,12 +353,12 @@ class _SocialIconButtonState extends State<_SocialIconButton> {
                   ? FaIcon(
                       widget.icon,
                       color: _isHovered ? Colors.white : Colors.white70,
-                      size: 20,
+                      size: 18,
                     )
                   : Icon(
                       widget.icon,
                       color: _isHovered ? Colors.white : Colors.white70,
-                      size: 22,
+                      size: 20,
                     ),
             ),
           ),

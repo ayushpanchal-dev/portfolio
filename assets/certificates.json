@@ -1,0 +1,192 @@
+[
+  {
+    "id": "c1",
+    "title": "Flutter Development Certificate",
+    "issuer": "Alison",
+    "category": "Flutter & Mobile",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/alison_flutter.png",
+    "year": "2024"
+  },
+  {
+    "id": "c2",
+    "title": "Flutter for Beginners",
+    "issuer": "Great Learning",
+    "category": "Flutter & Mobile",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/gl_flutter.jpg",
+    "year": "2024"
+  },
+  {
+    "id": "c3",
+    "title": "Flutter Certificate Course",
+    "issuer": "Simplilearn",
+    "category": "Flutter & Mobile",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/flutter_simplilearn.png",
+    "year": "2024"
+  },
+  {
+    "id": "c4",
+    "title": "Programming Foundations: Beyond the Fundamentals",
+    "issuer": "LinkedIn Learning / NASBA",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/programming_foundations.png",
+    "year": "2023"
+  },
+  {
+    "id": "c5",
+    "title": "Problem Solving (Basic)",
+    "issuer": "HackerRank",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/hackerrank_problem_solving.png",
+    "year": "2023"
+  },
+  {
+    "id": "c6",
+    "title": "HTML & CSS Web Development",
+    "issuer": "TOPS Technologies",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/tops_html_css.png",
+    "year": "2022"
+  },
+  {
+    "id": "c7",
+    "title": "UI/UX Design for Beginners",
+    "issuer": "Great Learning",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/gl_uiux.jpg",
+    "year": "2024"
+  },
+  {
+    "id": "c8",
+    "title": "Python Fundamentals",
+    "issuer": "Great Learning",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/gl_python.jpg",
+    "year": "2023"
+  },
+  {
+    "id": "c9",
+    "title": "Complete Python Bootcamp",
+    "issuer": "Udemy",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/udemy_python.png",
+    "year": "2023"
+  },
+  {
+    "id": "c10",
+    "title": "Java & C++ Programming",
+    "issuer": "Udemy",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/udemy_java_cpp.png",
+    "year": "2022"
+  },
+  {
+    "id": "c11",
+    "title": "C & C++ Certification",
+    "issuer": "Technical Institute",
+    "category": "Programming & Web",
+    "priority": "high",
+    "format": "image",
+    "filePath": "assets/certificates/c_cpp_certificate.jpeg",
+    "year": "2021"
+  },
+  {
+    "id": "c12",
+    "title": "ChatGPT for Beginners",
+    "issuer": "Great Learning",
+    "category": "AI & Tools",
+    "priority": "medium",
+    "format": "image",
+    "filePath": "assets/certificates/gl_chatgpt.jpg",
+    "year": "2024"
+  },
+  {
+    "id": "c13",
+    "title": "E-Commerce Fundamentals",
+    "issuer": "ATINGI",
+    "category": "AI & Tools",
+    "priority": "medium",
+    "format": "image",
+    "filePath": "assets/certificates/atingi_ecommerce.png",
+    "year": "2023"
+  },
+  {
+    "id": "c14",
+    "title": "Human Resource Management",
+    "issuer": "Saylor Academy",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/hrm_saylor.png",
+    "year": "2023"
+  },
+  {
+    "id": "c15",
+    "title": "Participation & Recognition",
+    "issuer": "Aaj Tak",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/aajtak.png",
+    "year": "2023"
+  },
+  {
+    "id": "c16",
+    "title": "GEMI Training Certificate",
+    "issuer": "GEMI",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/gemi_certificate.jpeg",
+    "year": "2023"
+  },
+  {
+    "id": "c17",
+    "title": "Life Skill Program",
+    "issuer": "Life Skills Education",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/life_skill.jpeg",
+    "year": "2022"
+  },
+  {
+    "id": "c18",
+    "title": "Teacher's Day Recognition",
+    "issuer": "Institutional Award",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/teachers_day.jpeg",
+    "year": "2022"
+  },
+  {
+    "id": "c19",
+    "title": "Krida Bharti Certificate",
+    "issuer": "Krida Bharti",
+    "category": "Achievements",
+    "priority": "low",
+    "format": "image",
+    "filePath": "assets/certificates/krida_bharti.jpeg",
+    "year": "2021"
+  }
+]

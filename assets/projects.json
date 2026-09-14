@@ -1,88 +1,80 @@
 [
     {
-        "title": "Helping Hand",
-        "duration": "11/2022 - 02/2023",
-        "type": "Academic Project (NGO Based)",
-        "description": "A web-based NGO management system developed as an academic project to support social initiatives and streamline organizational activities.",
-        "tech_stack": [
-            "HTML",
-            "CSS",
-            "Bootstrap",
-            "Django",
-            "MySQL"
-        ],
-        "platform": "Web Application",
-        "image": "assets/images/python.jpg"
-    },
-    {
-        "title": "Reality Homes",
-        "type": "Academic Project",
-        "description": "A real estate management system designed to manage property listings, inquiries, and and customer interactions efficiently.",
-        "tech_stack": [
-            "HTML",
-            "CSS",
-            "Bootstrap",
-            "Django",
-            "MySQL"
-        ],
-        "platform": "Web Application",
-        "image": "assets/images/python.jpg"
-    },
-    {
-        "title": "EStore",
-        "type": "E-commerce Application",
-        "description": "A full-featured e-commerce application with separate user and admin panels supporting product management, orders, and authentication.",
+        "id": "p1",
+        "title": "simpliCRM — Field Sales Management",
+        "type": "Professional Enterprise App",
+        "platform": "Cross-Platform (Web & Mobile)",
+        "description": "A cross-platform Flutter CRM application engineered for real-time field sales operations, GPS route tracking, dealer conversions, and seamless enquiry-to-order workflows.",
+        "about": "simpliCRM empowers enterprise sales teams by streamlining field operations with offline-aware data collection, site verification, dealer management, and intelligent route planning. Built with robust GetX state management and clean REST API integration.",
         "tech_stack": [
             "Flutter",
-            "Django",
-            "Firebase"
-        ],
-        "platform": "Mobile Application",
-        "modules": [
-            "Admin Panel (Django)",
-            "User Panel (Flutter)"
-        ],
-        "image": "assets/images/flutter.jpg"
-    },
-    {
-        "title": "Suraj Approval",
-        "type": "Live Project (Company Project)",
-        "description": "An internal approval and workflow management system implementing role-based access control for expense and operational request approvals.",
-        "tech_stack": [
-            "Flutter (Web & Mobile)",
-            "GetX",
-            "REST APIs"
-        ],
-        "platform": "Web & Mobile Application",
-        "note": "Backend and database details are confidential (company project).",
-        "image": "assets/images/surajLogo.jpg"
-    },
-    {
-        "title": "SimpliWorks Enterprise Modules",
-        "type": "Live Project (Company Product)",
-        "description": "Worked on enterprise-grade modules within the SimpliWorks platform, focusing on scalable, role-based business workflows and data-driven operations.",
-        "modules": [
-            "CRM Module",
-            "Expense Management Module",
-            "Delivery Management Module"
-        ],
-        "tech_stack": [
-            "Flutter (Web & Mobile)",
+            "Dart",
             "GetX",
             "REST APIs",
-            "Dio",
-            "Role-Based Access Control"
+            "GPS Tracking",
+            "Offline Workflows",
+            "Responsive UI"
         ],
-        "platform": "Enterprise Web & Mobile Application",
-        "note": "Internal business logic and database architecture are confidential.",
-        "image": "assets/images/simpliLogo.png",
-        "year": "2024",
-        "about": "Worked on enterprise-grade modules within the SimpliWorks platform, focusing on scalable, role-based business workflows and data-driven operations.",
         "features": [
-            "CRM for managing customer relationships",
-            "Expense tracking and approval workflows",
-            "Real-time delivery management system",
-            "Role-based access control integration"
-        ]
+            "Real-time GPS tracking and dynamic route planning for field officers",
+            "Dealer management & site verification/conversion pipeline",
+            "End-to-end enquiry-to-order processing with status tracking",
+            "Role-based dynamic interfaces and offline-aware field synchronization",
+            "Responsive UI optimized for Android, iOS, and Web viewports"
+        ],
+        "image": "assets/images/simpliLogo.png",
+        "year": "2025"
+    },
+    {
+        "id": "p2",
+        "title": "simpliDELIVER — Dispatch & Logistics Management",
+        "type": "Professional Enterprise App",
+        "platform": "Web & Mobile Application",
+        "description": "Enterprise Flutter dispatch and logistics management system for handling loading slips, automated weighing, invoices, and material dispatches.",
+        "about": "simpliDELIVER handles complex logistics workflows across dispatch centers. Incorporates PlutoGrid for high-performance dynamic data tables, Dio HTTP client for robust REST API handling, and strict business validations for enterprise operations.",
+        "tech_stack": [
+            "Flutter",
+            "Dart",
+            "PlutoGrid",
+            "Dio",
+            "REST APIs",
+            "Role-Based Access",
+            "Logistics Grid"
+        ],
+        "features": [
+            "Automated loading slip generation, weighing integration & instant invoicing",
+            "High-performance dynamic data tables using PlutoGrid with sorting and inline editing",
+            "Role-based multi-tier approval and dispatch operations workflow",
+            "Product, raw material, and inventory dispatch validations",
+            "Dio HTTP client integration with error interceptors and retry policies"
+        ],
+        "image": "assets/images/simpliLogo.png",
+        "year": "2025"
+    },
+    {
+        "id": "p3",
+        "title": "simpliEXPENSE — Expense & Advance Management",
+        "type": "Professional Enterprise App",
+        "platform": "Web & Mobile Application",
+        "description": "Enterprise expense and cash advance management app featuring multi-level hierarchical approval workflows and high-performance financial data grids.",
+        "about": "simpliEXPENSE simplifies employee reimbursement, expense heads allocation, and advance limit management. Built with Syncfusion DataGrid for complex pagination & filtering, alongside multi-level approval hierarchies spanning Employee, HOD, HR, Director, and Finance roles.",
+        "tech_stack": [
+            "Flutter",
+            "Dart",
+            "GetX",
+            "Syncfusion DataGrid",
+            "REST APIs",
+            "Multi-Level Approvals",
+            "Reusable UI"
+        ],
+        "features": [
+            "Employee expense filing with digital bill receipt uploads & category tagging",
+            "Cash advance request system with dynamic threshold limits & reference tracking",
+            "Hierarchical approval workflow (Employee -> HOD -> HR -> Director -> Finance)",
+            "Syncfusion DataGrid integration for fast pagination, search, and CSV export",
+            "Modular, reusable enterprise UI component architecture across Web & Mobile"
+        ],
+        "image": "assets/images/simpliLogo.png",
+        "year": "2025"
     }
 ]

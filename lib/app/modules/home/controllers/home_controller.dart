@@ -6,6 +6,7 @@ class HomeController extends GetxController {
   final aboutKey = GlobalKey();
   final skillsKey = GlobalKey();
   final projectsKey = GlobalKey();
+  final certificatesKey = GlobalKey();
   final resumeKey = GlobalKey();
   final contactKey = GlobalKey();
   final scaffoldKey = GlobalKey<ScaffoldState>();
