@@ -16,6 +16,10 @@ class HomeController extends GetxController {
   }
 
   Future<void> scrollToSection(GlobalKey key) async {
+    if (Get.currentRoute != '/') {
+      Get.offAllNamed('/');
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
     if (key.currentContext != null) {
       Scrollable.ensureVisible(
         key.currentContext!,

@@ -2,6 +2,7 @@
     {
         "id": "p1",
         "title": "simpliCRM — Field Sales Management",
+        "category": "professional",
         "type": "Professional Enterprise App",
         "platform": "Cross-Platform (Web & Mobile)",
         "description": "A cross-platform Flutter CRM application engineered for real-time field sales operations, GPS route tracking, dealer conversions, and seamless enquiry-to-order workflows.",
@@ -28,6 +29,7 @@
     {
         "id": "p2",
         "title": "simpliDELIVER — Dispatch & Logistics Management",
+        "category": "professional",
         "type": "Professional Enterprise App",
         "platform": "Web & Mobile Application",
         "description": "Enterprise Flutter dispatch and logistics management system for handling loading slips, automated weighing, invoices, and material dispatches.",
@@ -54,6 +56,7 @@
     {
         "id": "p3",
         "title": "simpliEXPENSE — Expense & Advance Management",
+        "category": "professional",
         "type": "Professional Enterprise App",
         "platform": "Web & Mobile Application",
         "description": "Enterprise expense and cash advance management app featuring multi-level hierarchical approval workflows and high-performance financial data grids.",
@@ -76,5 +79,39 @@
         ],
         "image": "assets/images/simpliLogo.png",
         "year": "2025"
+    },
+    {
+        "id": "p4",
+        "title": "Suraj Approval",
+        "category": "personal",
+        "type": "Personal Showcase App",
+        "platform": "Web & Mobile Application",
+        "description": "Internal approval and workflow management system implementing role-based access control for operational requests.",
+        "tech_stack": [
+            "Flutter",
+            "GetX",
+            "REST APIs"
+        ],
+        "image": "assets/images/surajLogo.jpg",
+        "screenCraftSlug": "suraj-approval",
+        "externalUrl": "https://screencraft-ai.vercel.app/project/suraj-approval",
+        "year": "2024"
+    },
+    {
+        "id": "p5",
+        "title": "Shree Bhumi LMS",
+        "category": "personal",
+        "type": "Personal Showcase App",
+        "platform": "Cross-Platform App",
+        "description": "Learning and course management platform featuring interactive module tracking and student portal interface.",
+        "tech_stack": [
+            "Flutter",
+            "Dart",
+            "Firebase"
+        ],
+        "image": "assets/images/flutter.jpg",
+        "screenCraftSlug": "shree-bhumi-lms",
+        "externalUrl": "https://screencraft-ai.vercel.app/project/shree-bhumi-lms",
+        "year": "2026"
     }
 ]

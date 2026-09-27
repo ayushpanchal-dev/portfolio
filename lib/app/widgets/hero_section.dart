@@ -8,7 +8,6 @@ import 'gradient_text.dart';
 import 'typewriter_text.dart';
 import 'package:get/get.dart';
 import '../modules/home/controllers/home_controller.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -38,8 +37,8 @@ class HeroSection extends StatelessWidget {
             children: [
               // Text Content
               isDesktop
-                  ? Expanded(flex: 6, child: _buildTextContent(isDesktop))
-                  : _buildTextContent(isDesktop),
+                  ? Expanded(flex: 6, child: _buildTextContent(context, isDesktop))
+                  : _buildTextContent(context, isDesktop),
               if (isDesktop) const SizedBox(width: 40),
               // Hero Image / Developer Frame
               isDesktop
@@ -54,16 +53,8 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTextContent(bool isDesktop) {
-    final List<String> keywords = [
-      'Flutter',
-      'Dart',
-      'GetX',
-      'REST APIs',
-      'Firebase',
-      'Responsive UI',
-      'Enterprise Applications',
-    ];
+  Widget _buildTextContent(BuildContext context, bool isDesktop) {
+    final isMobile = ResponsiveHelper.isMobile(context);
 
     return Column(
       crossAxisAlignment:
@@ -90,12 +81,15 @@ class HeroSection extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
-                "Software Developer Level 1 @ WeServeCodes",
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white70,
+              Flexible(
+                child: Text(
+                  "Software Developer Level 1 @ WeServeCodes",
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white70,
+                  ),
                 ),
               ),
             ],
@@ -146,7 +140,7 @@ class HeroSection extends StatelessWidget {
           'Building scalable, responsive and user-friendly mobile applications with Flutter.',
           textAlign: isDesktop ? TextAlign.start : TextAlign.center,
           style: GoogleFonts.poppins(
-            fontSize: 17,
+            fontSize: isMobile ? 15 : 17,
             fontWeight: FontWeight.w500,
             color: Colors.white.withOpacity(0.9),
             height: 1.5,
@@ -154,99 +148,52 @@ class HeroSection extends StatelessWidget {
         ),
         const SizedBox(height: 35),
 
-        // Call to action buttons
-        Row(
-          mainAxisAlignment:
-              isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: AppGradients.primary,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withOpacity(0.4),
-                    blurRadius: 15,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  final controller = Get.find<HomeController>();
-                  controller.scrollToSection(controller.projectsKey);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                ),
-                child: Text(
-                  "View Enterprise Work",
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            OutlinedButton(
-              onPressed: () {
-                final controller = Get.find<HomeController>();
-                controller.scrollToSection(controller.contactKey);
-              },
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF0072FF), width: 1.5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
-              ),
-              child: Text(
-                "Get In Touch",
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Responsive Call to action buttons
+        if (isDesktop)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildPrimaryCtaButton(),
+              const SizedBox(width: 16),
+              _buildSecondaryCtaButton(),
+            ],
+          )
+        else
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildPrimaryCtaButton(isFullWidth: true),
+              const SizedBox(height: 14),
+              _buildSecondaryCtaButton(isFullWidth: true),
+            ],
+          ),
         const SizedBox(height: 30),
 
         // Social Icons Row
         Row(
           mainAxisAlignment:
               isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center,
-          children: [
-            const _SocialIconButton(
+          children: const [
+            _SocialIconButton(
               icon: FontAwesomeIcons.github,
               url: 'https://github.com/ayushpanchal-dev/apayush',
               tooltip: 'GitHub',
             ),
-            const SizedBox(width: 16),
-            const _SocialIconButton(
+            SizedBox(width: 16),
+            _SocialIconButton(
               icon: FontAwesomeIcons.linkedinIn,
               url: 'https://www.linkedin.com/in/ayush2505',
               tooltip: 'LinkedIn',
             ),
-            const SizedBox(width: 16),
-            const _SocialIconButton(
+            SizedBox(width: 16),
+            _SocialIconButton(
               icon: Icons.email_outlined,
               url: 'mailto:aayushpanchal0708@gmail.com',
               tooltip: 'Email',
               isFontAwesome: false,
             ),
-            const SizedBox(width: 16),
-            const _SocialIconButton(
+            SizedBox(width: 16),
+            _SocialIconButton(
               icon: Icons.description_outlined,
               url:
                   'https://drive.google.com/file/d/1K7aBNhoT-FCi_W3dZAHwe-_rnwuiziIn/view?usp=drive_link',
@@ -256,6 +203,81 @@ class HeroSection extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildPrimaryCtaButton({bool isFullWidth = false}) {
+    final buttonContent = Container(
+      height: 50,
+      width: isFullWidth ? double.infinity : null,
+      decoration: BoxDecoration(
+        gradient: AppGradients.primary,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.4),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          final controller = Get.isRegistered<HomeController>()
+              ? Get.find<HomeController>()
+              : null;
+          controller?.scrollToSection(controller.projectsKey);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+        ),
+        child: Text(
+          "View Enterprise Work",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+    return buttonContent;
+  }
+
+  Widget _buildSecondaryCtaButton({bool isFullWidth = false}) {
+    return SizedBox(
+      height: 50,
+      width: isFullWidth ? double.infinity : null,
+      child: OutlinedButton(
+        onPressed: () {
+          final controller = Get.isRegistered<HomeController>()
+              ? Get.find<HomeController>()
+              : null;
+          controller?.scrollToSection(controller.contactKey);
+        },
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Color(0xFF0072FF), width: 1.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 26),
+        ),
+        child: Text(
+          "Get In Touch",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../data/models/certificate.dart';
 import '../theme/app_colors.dart';
@@ -18,16 +19,8 @@ class CertificatesSection extends StatefulWidget {
 
 class _CertificatesSectionState extends State<CertificatesSection> {
   late Future<List<Certificate>> _certificatesFuture;
-  String _selectedCategory = 'All';
-  bool _showAll = false;
-
-  final List<String> _categories = [
-    'All',
-    'Flutter & Mobile',
-    'Programming & Web',
-    'AI & Tools',
-    'Achievements',
-  ];
+  late PageController _pageController;
+  int _currentPageIndex = 0;
 
   static final List<Certificate> _fallbackCertificates = [
     Certificate(
@@ -90,142 +83,19 @@ class _CertificatesSectionState extends State<CertificatesSection> {
       filePath: "assets/certificates/tops_html_css.png",
       year: "2022",
     ),
-    Certificate(
-      id: "c7",
-      title: "UI/UX Design for Beginners",
-      issuer: "Great Learning",
-      category: "Programming & Web",
-      priority: "high",
-      format: "image",
-      filePath: "assets/certificates/gl_uiux.jpg",
-      year: "2024",
-    ),
-    Certificate(
-      id: "c8",
-      title: "Python Fundamentals",
-      issuer: "Great Learning",
-      category: "Programming & Web",
-      priority: "high",
-      format: "image",
-      filePath: "assets/certificates/gl_python.jpg",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c9",
-      title: "Complete Python Bootcamp",
-      issuer: "Udemy",
-      category: "Programming & Web",
-      priority: "high",
-      format: "image",
-      filePath: "assets/certificates/udemy_python.png",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c10",
-      title: "Java & C++ Programming",
-      issuer: "Udemy",
-      category: "Programming & Web",
-      priority: "high",
-      format: "image",
-      filePath: "assets/certificates/udemy_java_cpp.png",
-      year: "2022",
-    ),
-    Certificate(
-      id: "c11",
-      title: "C & C++ Certification",
-      issuer: "Technical Institute",
-      category: "Programming & Web",
-      priority: "high",
-      format: "image",
-      filePath: "assets/certificates/c_cpp_certificate.jpeg",
-      year: "2021",
-    ),
-    Certificate(
-      id: "c12",
-      title: "ChatGPT for Beginners",
-      issuer: "Great Learning",
-      category: "AI & Tools",
-      priority: "medium",
-      format: "image",
-      filePath: "assets/certificates/gl_chatgpt.jpg",
-      year: "2024",
-    ),
-    Certificate(
-      id: "c13",
-      title: "E-Commerce Fundamentals",
-      issuer: "ATINGI",
-      category: "AI & Tools",
-      priority: "medium",
-      format: "image",
-      filePath: "assets/certificates/atingi_ecommerce.png",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c14",
-      title: "Human Resource Management",
-      issuer: "Saylor Academy",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/hrm_saylor.png",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c15",
-      title: "Participation & Recognition",
-      issuer: "Aaj Tak",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/aajtak.png",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c16",
-      title: "GEMI Training Certificate",
-      issuer: "GEMI",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/gemi_certificate.jpeg",
-      year: "2023",
-    ),
-    Certificate(
-      id: "c17",
-      title: "Life Skill Program",
-      issuer: "Life Skills Education",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/life_skill.jpeg",
-      year: "2022",
-    ),
-    Certificate(
-      id: "c18",
-      title: "Teacher's Day Recognition",
-      issuer: "Institutional Award",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/teachers_day.jpeg",
-      year: "2022",
-    ),
-    Certificate(
-      id: "c19",
-      title: "Krida Bharti Certificate",
-      issuer: "Krida Bharti",
-      category: "Achievements",
-      priority: "low",
-      format: "image",
-      filePath: "assets/certificates/krida_bharti.jpeg",
-      year: "2021",
-    ),
   ];
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     _certificatesFuture = _loadCertificates();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   Future<List<Certificate>> _loadCertificates() async {
@@ -244,15 +114,7 @@ class _CertificatesSectionState extends State<CertificatesSection> {
 
       return certs;
     } catch (e) {
-      // Fallback seamlessly if rootBundle asset loading fails
-      final certs = List<Certificate>.from(_fallbackCertificates);
-      certs.sort((a, b) {
-        final pMap = {'high': 0, 'medium': 1, 'low': 2};
-        final pA = pMap[a.priority] ?? 1;
-        final pB = pMap[b.priority] ?? 1;
-        return pA.compareTo(pB);
-      });
-      return certs;
+      return List<Certificate>.from(_fallbackCertificates);
     }
   }
 
@@ -260,6 +122,9 @@ class _CertificatesSectionState extends State<CertificatesSection> {
   Widget build(BuildContext context) {
     final isMobile = ResponsiveHelper.isMobile(context);
     final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    // Cards per page: Desktop 3, Tablet 2, Mobile 1
+    final cardsPerPage = isDesktop ? 3 : (isMobile ? 1 : 2);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -288,162 +153,190 @@ class _CertificatesSectionState extends State<CertificatesSection> {
           ),
           const SizedBox(height: 16),
           Text(
-            "Verified technical certifications, professional training, and achievements",
+            "Featured verified technical certifications and achievements",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: AppColors.textSecondary,
               fontSize: 15,
             ),
           ),
-          const SizedBox(height: 35),
-
-          // Category Filter Tabs
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _categories.map((cat) {
-                final isSelected = _selectedCategory == cat;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: FilterChip(
-                    label: Text(
-                      cat,
-                      style: GoogleFonts.poppins(
-                        color: isSelected ? Colors.white : Colors.white70,
-                        fontSize: 13,
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.normal,
-                      ),
-                    ),
-                    selected: isSelected,
-                    onSelected: (val) {
-                      setState(() {
-                        _selectedCategory = cat;
-                      });
-                    },
-                    backgroundColor: Colors.white.withOpacity(0.04),
-                    selectedColor: AppColors.primary,
-                    checkmarkColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: isSelected
-                            ? AppColors.primary
-                            : Colors.white.withOpacity(0.1),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
           const SizedBox(height: 40),
 
-          // Certificate Cards Grid
+          // Featured Carousel Container
           FutureBuilder<List<Certificate>>(
             future: _certificatesFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(40),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text("No certificates found."));
-              }
-
-              final filteredCerts = snapshot.data!.where((cert) {
-                if (_selectedCategory == 'All') return true;
-                return cert.category == _selectedCategory;
-              }).toList();
-
-              if (filteredCerts.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.all(40),
+                return const Center(
                   child: Text(
-                    "No certificates under '$_selectedCategory'",
-                    style: GoogleFonts.poppins(color: Colors.white70),
+                    "No certificates found.",
+                    style: TextStyle(color: Colors.white70),
                   ),
                 );
               }
 
-              final displayedCerts = (_showAll || filteredCerts.length <= 6)
-                  ? filteredCerts
-                  : filteredCerts.take(6).toList();
+              final allCerts = snapshot.data!;
+              // Featured subset for carousel
+              final featuredCerts = allCerts.take(8).toList();
+
+              // Calculate total pages
+              final totalPages = (featuredCerts.length / cardsPerPage).ceil();
 
               return Column(
                 children: [
-                  isDesktop
-                      ? GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 1.1,
-                            crossAxisSpacing: 25,
-                            mainAxisSpacing: 25,
-                          ),
-                          itemCount: displayedCerts.length,
-                          itemBuilder: (context, index) {
-                            return CertificateCard(
-                                certificate: displayedCerts[index]);
+                  // Carousel Slider Row with Navigation Arrows
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        height: isMobile ? 300 : 320,
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: totalPages,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _currentPageIndex = index;
+                            });
                           },
-                        )
-                      : isMobile
-                          ? Column(
-                              children: displayedCerts.map((cert) {
-                                return Container(
-                                  height: 280,
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  child: CertificateCard(certificate: cert),
+                          itemBuilder: (context, pageIndex) {
+                            final startIndex = pageIndex * cardsPerPage;
+                            final endIndex = (startIndex + cardsPerPage <=
+                                    featuredCerts.length)
+                                ? startIndex + cardsPerPage
+                                : featuredCerts.length;
+                            final pageItems =
+                                featuredCerts.sublist(startIndex, endIndex);
+
+                            return Row(
+                              children: pageItems.map((cert) {
+                                return Expanded(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 10),
+                                    child: CertificateCard(certificate: cert),
+                                  ),
                                 );
                               }).toList(),
-                            )
-                          : GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1.1,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20,
-                              ),
-                              itemCount: displayedCerts.length,
-                              itemBuilder: (context, index) {
-                                return CertificateCard(
-                                    certificate: displayedCerts[index]);
-                              },
-                            ),
-                  if (filteredCerts.length > 6) ...[
-                    const SizedBox(height: 35),
-                    OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          _showAll = !_showAll;
-                        });
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                            color: Color(0xFF0072FF), width: 1.5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                            );
+                          },
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32, vertical: 16),
                       ),
-                      child: Text(
-                        _showAll
-                            ? "Show Less"
-                            : "Show All Certificates (${filteredCerts.length})",
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
+
+                      // Left Arrow (Desktop / Tablet)
+                      if (!isMobile && _currentPageIndex > 0)
+                        Positioned(
+                          left: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            icon: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.6),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.white24),
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
                         ),
+
+                      // Right Arrow (Desktop / Tablet)
+                      if (!isMobile && _currentPageIndex < totalPages - 1)
+                        Positioned(
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            icon: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.6),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.white24),
+                              ),
+                              child: const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Carousel Page Indicator Dots
+                  if (totalPages > 1)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(totalPages, (index) {
+                        final isSelected = _currentPageIndex == index;
+                        return AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          height: 8,
+                          width: isSelected ? 24 : 8,
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColors.primary
+                                : Colors.white24,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        );
+                      }),
+                    ),
+                  const SizedBox(height: 35),
+
+                  // View All Certificates Button
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      Get.toNamed('/certificates');
+                    },
+                    icon: const Icon(
+                      Icons.workspace_premium_outlined,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                    label: Text(
+                      "View All Certificates (${allCerts.length}) →",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(
+                          color: Color(0xFF0072FF), width: 1.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 16),
+                      backgroundColor: Colors.white.withOpacity(0.02),
+                    ),
+                  ),
                 ],
               );
             },

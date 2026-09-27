@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/modules/home/views/home_view.dart';
+import 'app/modules/certificates/views/all_certificates_view.dart';
 import 'app/theme/app_colors.dart';
 
 void main() {
@@ -20,7 +21,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.background,
         useMaterial3: true,
       ),
-      home: const HomeView(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomeView()),
+        GetPage(name: '/certificates', page: () => const AllCertificatesView()),
+      ],
       debugShowCheckedModeBanner: false,
     );
   }

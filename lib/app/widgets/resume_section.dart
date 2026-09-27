@@ -8,8 +8,6 @@ import 'gradient_text.dart';
 class ResumeSection extends StatelessWidget {
   const ResumeSection({Key? key}) : super(key: key);
 
-  // Resume launch moved to Hero Section
-
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveHelper.isMobile(context);
@@ -20,39 +18,11 @@ class ResumeSection extends StatelessWidget {
         vertical: 50,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              // Centered Title and Divider
-              Column(
-                children: [
-                  GradientText(
-                    'Resume',
-                    gradient: AppGradients.primary,
-                    style: GoogleFonts.rubik(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    height: 4,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      gradient: AppGradients.primary,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 50),
           _buildExperienceSection(isMobile),
-          const SizedBox(height: 50),
-          _buildEducationSection(),
+          const SizedBox(height: 60),
+          _buildEducationSection(isMobile),
         ],
       ),
     );
@@ -68,20 +38,30 @@ class ResumeSection extends StatelessWidget {
               blendMode: BlendMode.srcIn,
               shaderCallback: (bounds) =>
                   AppGradients.primary.createShader(bounds),
-              child: const Icon(Icons.work_outline, size: 28),
+              child: const Icon(Icons.work_outline, size: 32),
             ),
-            const SizedBox(width: 10),
-            Text(
+            const SizedBox(width: 12),
+            GradientText(
               'Experience',
-              style: GoogleFonts.poppins(
-                fontSize: 24,
+              gradient: AppGradients.primary,
+              style: GoogleFonts.rubik(
+                fontSize: isMobile ? 30 : 36,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 10),
+        Container(
+          height: 4,
+          width: 50,
+          decoration: BoxDecoration(
+            gradient: AppGradients.primary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(height: 35),
         _buildExperienceItem(
           company: 'WeServeCodes Pvt. Ltd.',
           role: 'Software Developer Level 1',
@@ -141,7 +121,7 @@ class ResumeSection extends StatelessWidget {
     );
   }
 
-  Widget _buildEducationSection() {
+  Widget _buildEducationSection(bool isMobile) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -151,20 +131,30 @@ class ResumeSection extends StatelessWidget {
               blendMode: BlendMode.srcIn,
               shaderCallback: (bounds) =>
                   AppGradients.primary.createShader(bounds),
-              child: const Icon(Icons.school_outlined, size: 28),
+              child: const Icon(Icons.school_outlined, size: 32),
             ),
-            const SizedBox(width: 10),
-            Text(
+            const SizedBox(width: 12),
+            GradientText(
               'Education',
-              style: GoogleFonts.poppins(
-                fontSize: 24,
+              gradient: AppGradients.primary,
+              style: GoogleFonts.rubik(
+                fontSize: isMobile ? 30 : 36,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 10),
+        Container(
+          height: 4,
+          width: 50,
+          decoration: BoxDecoration(
+            gradient: AppGradients.primary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(height: 35),
         _buildTimelineItem(
           role: 'Master Of Science In Information Technology',
           company:
@@ -172,6 +162,7 @@ class ResumeSection extends StatelessWidget {
           date: '2023-2025',
           descriptionItems: ['8.25 CPI'],
           icon: Icons.school,
+          isMobile: isMobile,
         ),
         _buildTimelineItem(
           role: 'Bachelor Of Computer Application',
@@ -180,22 +171,17 @@ class ResumeSection extends StatelessWidget {
           date: '2020-2023',
           descriptionItems: ['7.29 CGPA'],
           icon: Icons.school,
+          isMobile: isMobile,
         ),
         _buildTimelineItem(
-            role: 'H.S.C',
-            company: 'Super High School - Ahmedabad',
-            date: '2020',
-            descriptionItems: ['Percentage: 65%'],
-            icon: Icons.menu_book,
-            isLast: true),
-        // _buildTimelineItem(
-        //   role: 'S.S.C.',
-        //   company: 'Super High School - Ahmedabad',
-        //   date: '2018',
-        //   descriptionItems: ['Percentage: 75%'],
-        //   icon: Icons.menu_book,
-        //   isLast: true,
-        // ),
+          role: 'H.S.C',
+          company: 'Super High School - Ahmedabad',
+          date: '2020',
+          descriptionItems: ['Percentage: 65%'],
+          icon: Icons.menu_book,
+          isLast: true,
+          isMobile: isMobile,
+        ),
       ],
     );
   }
@@ -229,6 +215,7 @@ class ResumeSection extends StatelessWidget {
     required List<String> descriptionItems,
     required IconData icon,
     bool isLast = false,
+    bool isMobile = false,
   }) {
     return IntrinsicHeight(
       child: Row(
@@ -237,8 +224,8 @@ class ResumeSection extends StatelessWidget {
           Column(
             children: [
               Container(
-                width: 40,
-                height: 40,
+                width: 36,
+                height: 36,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.surface,
@@ -248,11 +235,10 @@ class ResumeSection extends StatelessWidget {
                     blendMode: BlendMode.srcIn,
                     shaderCallback: (bounds) =>
                         AppGradients.primary.createShader(bounds),
-                    child: Icon(icon, size: 24),
+                    child: Icon(icon, size: 20),
                   ),
                 ),
               ),
-              // Line connection
               if (!isLast)
                 Expanded(
                   child: Container(
@@ -262,8 +248,8 @@ class ResumeSection extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppGradients.primary.colors.first.withOpacity(0.1),
-                          AppGradients.primary.colors.last.withOpacity(0.1),
+                          AppGradients.primary.colors.first.withOpacity(0.15),
+                          AppGradients.primary.colors.last.withOpacity(0.15),
                         ],
                       ),
                     ),
@@ -271,72 +257,104 @@ class ResumeSection extends StatelessWidget {
                 ),
             ],
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 16),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 35),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          role,
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                  isMobile
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              role,
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.surface,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: Colors.white12),
+                              ),
+                              child: Text(
+                                date,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: AppColors.textSecondary,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                role,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: AppColors.surface,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.white12),
+                              ),
+                              child: Text(
+                                date,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.textSecondary,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.white12),
-                        ),
-                        child: Text(
-                          date,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 6),
                   Text(
                     company,
                     style: const TextStyle(
                       color: Colors.white70,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   ...descriptionItems.map((item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.only(bottom: 6),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
                               "• ",
                               style: TextStyle(
-                                  color: Colors.white70, fontSize: 16),
+                                  color: Colors.white70, fontSize: 15),
                             ),
                             Expanded(
                               child: Text(
                                 item,
                                 style: const TextStyle(
                                   color: AppColors.textSecondary,
-                                  fontSize: 14,
-                                  height: 1.5,
+                                  fontSize: 13.5,
+                                  height: 1.45,
                                 ),
                               ),
                             ),
@@ -388,7 +406,7 @@ class _ExperienceCardState extends State<_ExperienceCard> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Timeline
+          // Timeline Indicator
           Column(
             children: [
               Container(
@@ -405,7 +423,7 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                     height: 8,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.surface, // Inner hole
+                      color: AppColors.surface,
                     ),
                   ),
                 ),
@@ -419,8 +437,8 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppGradients.primary.colors.first.withOpacity(0.1),
-                          AppGradients.primary.colors.last.withOpacity(0.1),
+                          AppGradients.primary.colors.first.withOpacity(0.15),
+                          AppGradients.primary.colors.last.withOpacity(0.15),
                         ],
                       ),
                     ),
@@ -428,20 +446,20 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                 ),
             ],
           ),
-          const SizedBox(width: 20),
-          // Content
+          const SizedBox(width: 16),
+          // Content Card
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 35),
               child: MouseRegion(
                 onEnter: (_) => setState(() => _isHovered = true),
                 onExit: (_) => setState(() => _isHovered = false),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.all(24),
+                  padding: EdgeInsets.all(widget.isMobile ? 16 : 24),
                   decoration: BoxDecoration(
                     color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: _isHovered
                           ? AppColors.primary.withOpacity(0.5)
@@ -467,11 +485,11 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 48,
-                            height: 48,
-                            padding: const EdgeInsets.all(8),
+                            width: 44,
+                            height: 44,
+                            padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(10),
                               color: Colors.white.withOpacity(0.05),
                               image: DecorationImage(
                                 image: AssetImage(widget.assetLogo),
@@ -479,7 +497,7 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 14),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -492,21 +510,20 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                                           Text(
                                             widget.role,
                                             style: GoogleFonts.poppins(
-                                              fontSize: 18,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                           ),
-                                          const SizedBox(height: 12),
-                                          // Mobile Badge
+                                          const SizedBox(height: 8),
                                           Container(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 12, vertical: 6),
+                                                horizontal: 10, vertical: 4),
                                             decoration: BoxDecoration(
                                               color: Colors.white
                                                   .withOpacity(0.05),
                                               borderRadius:
-                                                  BorderRadius.circular(20),
+                                                  BorderRadius.circular(16),
                                               border: Border.all(
                                                   color: Colors.white12),
                                             ),
@@ -521,14 +538,14 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                                                   child: const Icon(
                                                       Icons
                                                           .calendar_today_outlined,
-                                                      size: 14),
+                                                      size: 12),
                                                 ),
-                                                const SizedBox(width: 8),
+                                                const SizedBox(width: 6),
                                                 Text(
                                                   widget.date,
                                                   style: const TextStyle(
                                                     color: Colors.white70,
-                                                    fontSize: 12,
+                                                    fontSize: 11.5,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
@@ -592,8 +609,8 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                                 GradientText(
                                   widget.company,
                                   gradient: AppGradients.primary,
-                                  style: TextStyle(
-                                    fontSize: 15,
+                                  style: const TextStyle(
+                                    fontSize: 14.5,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -602,14 +619,14 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 18),
                       ...widget.descriptionItems.map((item) => Padding(
                             padding: const EdgeInsets.only(bottom: 8),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 4.0),
+                                  padding: const EdgeInsets.only(top: 3.0),
                                   child: ShaderMask(
                                     blendMode: BlendMode.srcIn,
                                     shaderCallback: (bounds) => AppGradients
@@ -617,40 +634,40 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                                         .createShader(bounds),
                                     child: const Icon(
                                         Icons.keyboard_arrow_right,
-                                        size: 20),
+                                        size: 18),
                                   ),
                                 ),
-                                const SizedBox(width: 5),
+                                const SizedBox(width: 6),
                                 Expanded(
                                   child: Text(
                                     item,
                                     style: const TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 14,
-                                      height: 1.5,
+                                      fontSize: 13.5,
+                                      height: 1.45,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           )),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 16),
                       Text(
                         'Technologies Used:',
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 13.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 10),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: widget.technologies
                             .map((tech) => Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 6),
+                                      horizontal: 11, vertical: 5),
                                   decoration: BoxDecoration(
                                     color: Colors.black38,
                                     borderRadius: BorderRadius.circular(20),
@@ -658,9 +675,9 @@ class _ExperienceCardState extends State<_ExperienceCard> {
                                   ),
                                   child: Text(
                                     tech,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.textSecondary,
-                                      fontSize: 12,
+                                      fontSize: 11.5,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
